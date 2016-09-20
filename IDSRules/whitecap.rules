@@ -25,5 +25,5 @@ pass icmp any any -> any any (msg:"Whitecap: All As"; icode:0; itype:8; dsize:64
 pass icmp any any -> any any (msg:"Whitecap: All 0s"; icode:0; itype:8; dsize:56; content:"|00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00|"; classtype:misc-activity; sid:5110045; rev:1;)
 pass icmp [$ICMP_SRC_HOSTS_IGNORE] any -> any any (msg:"ICMP Pass: Ignore Hosts"; icode:0; itype:8; classtype:misc-activity; sid:5110050; rev:1;)
 pass icmp any any -> [$ICMP_DST_HOSTS_IGNORE] any (msg:"ICMP Pass: Ignore Hosts"; icode:0; itype:8; classtype:misc-activity; sid:5110055; rev:1;)
-alert icmp any any -> any any (msg:"Whitecap Other Echo Request"; icode:0; itype:8; dsize:>19; classtype:misc-activity; sid:5110000; rev:3;)
-alert icmp any any -> any any (msg:"Whitecap Other Echo Request"; icode:0; itype:8; dsize:<20; classtype:misc-activity; threshold:type limit, track by_src, count 4, seconds 60; sid:5110063; rev:3;)
+alert icmp any any -> any any (msg:"Whitecap Other ICMP Echo Request: Packet Payload Bytes > 19"; icode:0; itype:8; dsize:>19; classtype:misc-activity; sid:5110000; rev:3;)
+alert icmp any any -> any any (msg:"Whitecap Other ICMP Echo Request: Packet Payload Bytes < 20"; icode:0; itype:8; dsize:<20; classtype:misc-activity; threshold:type limit, track by_src, count 4, seconds 60; sid:5110063; rev:3;)
